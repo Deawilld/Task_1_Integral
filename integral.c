@@ -20,8 +20,12 @@ double integral(double (*f)(double), double dLeft, double dRight, double dStep) 
 
 	{//working with the edges
 		double dStepRem = dRange - iNumSteps * dStep; //the part of the interval which was not counted in iNumSteps
-		ddSumU += (f(dRight) * dStepRem + f(dRight - dStepRem)*(dStepRem+dStep))*0.5; //right edge
-		DekkerAccumulate(&ddSumU, &ddSumL, f(dLeft) * dStep * 0.5); //left edge
+		//right edge
+		ddSumU += f(dRight) * dStepRem * 0.5;
+		DekkerAccumulate(&ddSumU, &ddSumL, f(dRight - dStepRem) * dStepRem * 0.5);
+		DekkerAccumulate(&ddSumU, &ddSumL, f(dRight - dStepRem) * dStep * 0.5);
+		//left edge
+		DekkerAccumulate(&ddSumU, &ddSumL, f(dLeft) * dStep * 0.5);
 
 		iNumSteps -= 1;
 	}
