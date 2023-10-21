@@ -9,8 +9,8 @@ double f(double x) { //test function
 
 int main()
 {
-	double res = integral(f, -2, 2, 0.00000001);
-	printf("Integral of y=x | [-2, 2, step=1e-8]: %.16lf\n", res);
+	double res = integral(f, -2, 2, 0.000000001);
+	printf("Integral of y=x | [-2, 2, step=1e-9]: %.16lf\n", res);
 	printf("Error: %le\n", res);
 
 	res = integral(sin, 0, M_PI, 0.00000001);

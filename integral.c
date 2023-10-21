@@ -5,14 +5,14 @@
 double integral(double (*f)(double), double dLeft, double dRight, double dStep) {
 	double dRange = dRight - dLeft;
 	double dNumSteps = dRange / dStep;
-	if (!isfinite(dNumSteps) || dNumSteps < 0 || dNumSteps > UINT_MAX) {
+	if (!isfinite(dNumSteps) || dNumSteps < 0 || dNumSteps > ULLONG_MAX) {
 		return NAN;
 	}
 
 	//a special case for very small intervals
 	if (abs(dRange) < abs(dStep)) return (f(dLeft) + f(dRight)) * 0.5;
 
-	unsigned int iNumSteps = floor(dNumSteps);
+	unsigned long long int iNumSteps = floorl(dNumSteps);
 	
 	double dSum = 0.;
 
@@ -24,7 +24,7 @@ double integral(double (*f)(double), double dLeft, double dRight, double dStep) 
 		iNumSteps -= 1;
 	}
 
-	for (unsigned int i = 1; i <= iNumSteps; i++) {
+	for (unsigned long long int i = 1; i <= iNumSteps; i++) {
 		dSum += f(dLeft + i * dStep) * dStep;
 	}
 
